@@ -39,6 +39,8 @@ function App() {
   const [historyItems, setHistoryItems] = useState<HistoryItem[]>([])
   const [showHistoryPanel, setShowHistoryPanel] = useState(false)
   const [showHistoryExportDropdown, setShowHistoryExportDropdown] = useState(false)
+  const [showSeoAccordion, setShowSeoAccordion] = useState(false)
+  const [showSeoAccordion2, setShowSeoAccordion2] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const exportDropdownRef = useRef<HTMLDivElement>(null)
   const historyExportDropdownRef = useRef<HTMLDivElement>(null)
@@ -603,6 +605,66 @@ function App() {
             <span className="history-saved-count">{savedTranslations.length}</span>
           )}
         </button>
+      </div>
+
+      {/* SEO Accordion Section */}
+      <div className="seo-accordion-container">
+        <button
+          className={`seo-accordion-button ${showSeoAccordion ? 'active' : ''}`}
+          onClick={() => setShowSeoAccordion(!showSeoAccordion)}
+          aria-expanded={showSeoAccordion}
+          aria-label={t.seoTitle}
+        >
+          <span className="seo-accordion-title">{t.seoTitle}</span>
+          <svg
+            className={`seo-accordion-icon ${showSeoAccordion ? 'open' : ''}`}
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
+        {showSeoAccordion && (
+          <div className="seo-accordion-content">
+            <div className="seo-content-text">
+              <p>{t.seoContent}</p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* SEO Accordion Section 2 */}
+      <div className="seo-accordion-container">
+        <button
+          className={`seo-accordion-button ${showSeoAccordion2 ? 'active' : ''}`}
+          onClick={() => setShowSeoAccordion2(!showSeoAccordion2)}
+          aria-expanded={showSeoAccordion2}
+          aria-label={t.seoTitle2}
+        >
+          <span className="seo-accordion-title">{t.seoTitle2}</span>
+          <svg
+            className={`seo-accordion-icon ${showSeoAccordion2 ? 'open' : ''}`}
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
+        {showSeoAccordion2 && (
+          <div className="seo-accordion-content">
+            <div className="seo-content-text">
+              <p>{t.seoContent2}</p>
+            </div>
+          </div>
+        )}
       </div>
 
       {showSavedPanel && (

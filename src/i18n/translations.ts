@@ -40,6 +40,10 @@ export interface Translations {
   switchToEnglish: string;
   closePanel: string;
   localStorageWarning: string;
+  seoTitle: string;
+  seoContent: string;
+  seoTitle2: string;
+  seoContent2: string;
 }
 
 export const translations: Record<Language, Translations> = {
@@ -83,6 +87,10 @@ export const translations: Record<Language, Translations> = {
     switchToEnglish: 'Перемкнути інтерфейс на англійську мову',
     closePanel: 'Закрити панель',
     localStorageWarning: '⚠️ Дані зберігаються тільки локально в браузері. Вони не синхронізуються з сервером і можуть бути втрачені при очищенні даних браузера.',
+    seoTitle: 'Що таке транслітерація?',
+    seoContent: 'Транслітерáція — це процес перетворення тексту й окремих слів, які записані однією графічною системою чи системою писемності, засобами іншої графічної системи на основі фонетичної подібності. Інакше кажучи, передача однієї алфавітної системи писемності літерами іншої.',
+    seoTitle2: 'Навіщо потрібна транслітерація українського алфавіту латиницею?',
+    seoContent2: 'У зв\'язку із запровадженням визнання електронного підпису між Україною та країнами Європейського союзу виникла необхідність у транслітерації українського алфавіту латиницею з метою забезпечення сумісності міжнародних сертифікатів громадян нашої країни із інформаційними системами сфери електронних довірчих послуг країн Європейського союзу. Так, персональні дані, що містяться в сертифікатах електронного підпису (зокрема в сертифікатах, випущених за алгоритмами rsa і ecdsa), які випускаються кваліфікованими надавачами електронних довірчих послуг в Україні, вносяться символами кириличної системи, а в мовах країн Європейського союзу такі символи відсутні.',
   },
   en: {
     appTitle: 'Transliterations of the Ukrainian alphabet into Latin',
@@ -124,6 +132,10 @@ export const translations: Record<Language, Translations> = {
     switchToEnglish: 'Switch interface to English',
     closePanel: 'Close panel',
     localStorageWarning: '⚠️ Data is saved only locally in your browser. It is not synced to any server and may be lost if you clear your browser data.',
+    seoTitle: 'What is transliteration?',
+    seoContent: 'In today\'s digital era, where cross-border communication and data exchange are critical, the accurate and standardized representation of personal data is essential. One important step toward this goal is transliteration — converting text or words written in one script into another, based on phonetic equivalence. In simpler terms, it means writing the letters of one alphabet using the characters of another.',
+    seoTitle2: 'Why is transliteration of the Ukrainian alphabet in Latin needed?',
+    seoContent2: 'With the implementation of mutual recognition of electronic signatures between Ukraine and the European Union, a need to transliterate the Ukrainian alphabet into Latin arose. This ensures that personal data in digital certificates issued by Ukrainian providers of qualified trust services can be properly recognized and processed in EU electronic trust systems. Such certificates (including those based on RSA and ECDSA algorithms) typically contain names and information written in Cyrillic, a script not used in most EU countries.',
   },
 };
 
