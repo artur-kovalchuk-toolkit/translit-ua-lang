@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import { transliterateUkrainianToLatin, transliterateLatinToUkrainian, detectLanguage } from './utils/transliterate'
 import { useLanguage } from './i18n/LanguageContext'
+import { useTheme } from './i18n/ThemeContext'
 import { 
   getSavedTranslations, 
   saveTranslation, 
@@ -25,6 +26,7 @@ type SourceLanguageMode = 'auto' | 'ukrainian' | 'latin'
 
 function App() {
   const { t, language, setLanguage } = useLanguage()
+  const { theme, effectiveTheme, setTheme } = useTheme()
   const [inputText, setInputText] = useState('')
   const [outputText, setOutputText] = useState('')
   const [direction, setDirection] = useState<Direction>('uk-to-lat')
@@ -41,9 +43,11 @@ function App() {
   const [showHistoryExportDropdown, setShowHistoryExportDropdown] = useState(false)
   const [showSeoAccordion, setShowSeoAccordion] = useState(false)
   const [showSeoAccordion2, setShowSeoAccordion2] = useState(false)
+  const [showThemeDropdown, setShowThemeDropdown] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const exportDropdownRef = useRef<HTMLDivElement>(null)
   const historyExportDropdownRef = useRef<HTMLDivElement>(null)
+  const themeDropdownRef = useRef<HTMLDivElement>(null)
   const lastSavedHistoryRef = useRef<{ inputText: string; outputText: string; direction: Direction } | null>(null)
   const historyDebounceTimerRef = useRef<NodeJS.Timeout | null>(null)
   const inputTextareaRef = useRef<HTMLTextAreaElement>(null)
@@ -179,13 +183,16 @@ function App() {
       if (historyExportDropdownRef.current && !historyExportDropdownRef.current.contains(event.target as Node)) {
         setShowHistoryExportDropdown(false)
       }
+      if (themeDropdownRef.current && !themeDropdownRef.current.contains(event.target as Node)) {
+        setShowThemeDropdown(false)
+      }
     }
 
-    if (showLanguageDropdown || showExportDropdown || showHistoryExportDropdown) {
+    if (showLanguageDropdown || showExportDropdown || showHistoryExportDropdown || showThemeDropdown) {
       document.addEventListener('mousedown', handleClickOutside)
       return () => document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [showLanguageDropdown, showExportDropdown, showHistoryExportDropdown])
+  }, [showLanguageDropdown, showExportDropdown, showHistoryExportDropdown, showThemeDropdown])
 
   const handleSwap = () => {
     // Save current translation to history before swapping
@@ -377,6 +384,91 @@ function App() {
             </a>
           </div>
           <div className="header-actions">
+            <div className="theme-switcher" ref={themeDropdownRef}>
+              <button
+                className="theme-switcher-button"
+                onClick={() => setShowThemeDropdown(!showThemeDropdown)}
+                aria-label={theme === 'auto' ? t.switchToAutoTheme : (theme === 'dark' ? t.switchToDarkTheme : t.switchToLightTheme)}
+                title={theme === 'auto' ? t.switchToAutoTheme : (theme === 'dark' ? t.switchToDarkTheme : t.switchToLightTheme)}
+              >
+                {effectiveTheme === 'dark' ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                  </svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                  </svg>
+                )}
+                <span>{theme === 'auto' ? t.autoTheme : (theme === 'dark' ? t.darkTheme : t.lightTheme)}</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="dropdown-arrow">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+              {showThemeDropdown && (
+                <div className="theme-dropdown">
+                  <button
+                    className={`theme-option ${theme === 'light' ? 'active' : ''}`}
+                    onClick={() => {
+                      setTheme('light')
+                      setShowThemeDropdown(false)
+                    }}
+                    aria-label={t.switchToLightTheme}
+                    title={t.switchToLightTheme}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="5" />
+                      <line x1="12" y1="1" x2="12" y2="3" />
+                      <line x1="12" y1="21" x2="12" y2="23" />
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                      <line x1="1" y1="12" x2="3" y2="12" />
+                      <line x1="21" y1="12" x2="23" y2="12" />
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    {t.lightTheme}
+                  </button>
+                  <button
+                    className={`theme-option ${theme === 'dark' ? 'active' : ''}`}
+                    onClick={() => {
+                      setTheme('dark')
+                      setShowThemeDropdown(false)
+                    }}
+                    aria-label={t.switchToDarkTheme}
+                    title={t.switchToDarkTheme}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                    {t.darkTheme}
+                  </button>
+                  <button
+                    className={`theme-option ${theme === 'auto' ? 'active' : ''}`}
+                    onClick={() => {
+                      setTheme('auto')
+                      setShowThemeDropdown(false)
+                    }}
+                    aria-label={t.switchToAutoTheme}
+                    title={t.switchToAutoTheme}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                      <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                    {t.autoTheme}
+                  </button>
+                </div>
+              )}
+            </div>
             <div className="language-switcher">
               <button
                 className={`lang-button ${language === 'uk' ? 'active' : ''}`}

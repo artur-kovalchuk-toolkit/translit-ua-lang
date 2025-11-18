@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate, useSearchParams, useParams } fr
 import './index.css'
 import App from './App.tsx'
 import { LanguageProvider } from './i18n/LanguageContext.tsx'
+import { ThemeProvider } from './i18n/ThemeContext.tsx'
 import { ErrorBoundary } from './ErrorBoundary.tsx'
 
 function RootRedirect() {
@@ -17,9 +18,11 @@ function RootRedirect() {
   
   // If lang parameter exists, render the app
   return (
-    <LanguageProvider>
-      <App />
-    </LanguageProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+        <App />
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
 
