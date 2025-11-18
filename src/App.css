@@ -856,6 +856,11 @@
     padding: 16px;
   }
 
+  .translator-panel {
+    width: 100%;
+    flex: none;
+  }
+
   .swap-container {
     margin-top: 0;
     padding: 8px 0;
