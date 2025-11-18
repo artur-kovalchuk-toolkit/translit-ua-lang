@@ -46,8 +46,8 @@ export const translations: Record<Language, Translations> = {
   uk: {
     appTitle: 'Транслітерації українського алфавіту латиницею',
     appSubtitle: 'Українська ↔ Латинська',
-    officialRules: 'Офіційні правила',
-    officialRulesTitle: 'Офіційні правила транслітерації українського алфавіту латиницею (Постанова КМ № 55)',
+    officialRules: 'Правила транслітерації',
+    officialRulesTitle: 'Джерело: Постанова КМУ про впорядкування транслітерації українського алфавіту латиницею',
     ukrainian: 'Українська',
     latin: 'Латинська',
     clear: 'Очистити',
@@ -87,8 +87,8 @@ export const translations: Record<Language, Translations> = {
   en: {
     appTitle: 'Transliterations of the Ukrainian alphabet into Latin',
     appSubtitle: 'Ukrainian ↔ Latin',
-    officialRules: 'Official Rules',
-    officialRulesTitle: 'Official Ukrainian transliteration rules (Cabinet Resolution No. 55)',
+    officialRules: 'Transliteration Rules',
+    officialRulesTitle: 'Source: Resolution of the CMU on streamlining the transliteration of the Ukrainian alphabet in Latin',
     ukrainian: 'Ukrainian',
     latin: 'Latin',
     clear: 'Clear',
