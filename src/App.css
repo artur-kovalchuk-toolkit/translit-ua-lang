@@ -864,6 +864,9 @@
   .swap-container {
     margin-top: 0;
     padding: 8px 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 
   .swap-button {
