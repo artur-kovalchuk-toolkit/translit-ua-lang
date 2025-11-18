@@ -1,6 +1,7 @@
 {
   "name": "translit-ua-lang",
   "version": "0.0.0",
+  "description": "Modern web application for bidirectional transliteration between Ukrainian text and Latin script, following official Ukrainian transliteration rules",
   "private": true,
   "type": "module",
   "scripts": {
