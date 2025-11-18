@@ -15,6 +15,10 @@ A modern web application for transliterating Ukrainian text to Latin script and 
 - **Bilingual Interface**: Supports both Ukrainian (УКР) and English (ENG) languages
 - **Official Rules Compliance**: Follows the official Ukrainian transliteration rules
 
+## Live Demo
+
+🌐 **[Try the app live on GitHub Pages](https://artur-kovalchuk-toolkit.github.io/translit-ua-lang/)**
+
 ## Screenshots
 
 ### Main Translation Interface (English)

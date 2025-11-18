@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import type { Language } from './translations';
 import { translations } from './translations';
 
@@ -13,15 +13,15 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const { lang: urlLang } = useParams<{ lang: string }>();
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlLang = searchParams.get('lang');
   
   // Validate URL language parameter
-  const getValidLanguage = (lang: string | undefined): Language => {
+  const getValidLanguage = (lang: string | null | undefined): Language => {
     if (lang === 'uk' || lang === 'en') {
       return lang;
     }
-    return 'en'; // default
+    return 'uk'; // default
   };
 
   // Get initial language from URL or fallback
@@ -49,7 +49,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       }
     }
     
-    return 'en';
+    return 'uk';
   };
 
   const [language, setLanguageState] = useState<Language>(getInitialLanguage);
@@ -62,13 +62,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         setLanguageState(validLang);
       }
     }
-    // Note: Redirect is handled by the route in main.tsx
   }, [urlLang, language]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    // Update URL
-    navigate(`/${lang}`, { replace: true });
+    // Update URL with query parameter
+    setSearchParams({ lang });
     
     // Also save to localStorage
     if (typeof window !== 'undefined') {
