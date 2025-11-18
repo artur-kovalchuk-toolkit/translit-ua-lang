@@ -54,7 +54,7 @@ export interface Translations {
 
 export const translations: Record<Language, Translations> = {
   uk: {
-    appTitle: 'Транслітерації українського алфавіту латиницею',
+    appTitle: 'Транслітерація українського алфавіту латиницею',
     appSubtitle: 'Українська ↔ Латинська',
     officialRules: 'Правила транслітерації',
     officialRulesTitle: 'Джерело: Постанова КМУ про впорядкування транслітерації українського алфавіту латиницею',
