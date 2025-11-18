@@ -1,3 +1,4 @@
+# https://vite.dev/guide/static-deploy
 # Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
@@ -5,6 +6,7 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ['develop']
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -29,36 +31,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      
       - name: Set up Node
         uses: actions/setup-node@v6
         with:
           node-version: lts/*
           cache: 'npm'
-          registry-url: 'https://registry.npmjs.org'
-      
-      - name: Configure npm registry
-        run: npm config set registry https://registry.npmjs.org/
-      
       - name: Install dependencies
-        run: |
-          # Remove package-lock.json with private registry URLs and regenerate with public registry
-          rm -f package-lock.json
-          npm install --registry https://registry.npmjs.org/
-      
+        run: npm ci
       - name: Build
         run: npm run build
-      
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
           # Upload dist folder
           path: './dist'
-      
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
